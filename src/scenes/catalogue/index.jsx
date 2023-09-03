@@ -1,5 +1,5 @@
 import { Box, Typography, useTheme } from "@mui/material";
-import { DataGrid, gridClasses } from "@mui/x-data-grid";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { tokens } from "../../theme";
 import { mockDataCoffee } from "../../data/mockData";
 import Headers from "../../components/header";
@@ -13,6 +13,14 @@ const Catalogue = () => {
     //   field: "id,",
     //   headerName: "ID",
     // },
+    {
+      field: "Avatar",
+      headerName: "Avatar",
+      width: 100,
+      renderCell: (params) => {
+        return <img src={params.row.image || "/noavator.png"} alt="Coffee" />;
+      },
+    },
     {
       field: "name",
       headerName: "Coffee Name",
@@ -74,6 +82,12 @@ const Catalogue = () => {
           "& .MuiCheckbox-root": {
             color: `${colors.greenAccent[200]} !important`,
           },
+          "& .MuiDataGrid-toolbarContainer": {
+            background: `${colors.primary[400]} !important`,
+            padding: "5px",
+            marginBottom: "3px",
+            flexDirection: "row-reverse",
+          },
         }}
       >
         <DataGrid
@@ -82,11 +96,32 @@ const Catalogue = () => {
           getRowHeight={() => "auto"}
           getEstimatedRowHeight={() => 150}
           autoHeight={true}
-          sx={{
-            [`& .${gridClasses.cell}`]: {
-              py: 1,
+          // sx={{
+          //   [`& .${gridClasses.cell}`]: {
+          //     py: 1,
+          //   },
+          // }}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
             },
           }}
+          slots={{ toolbar: GridToolbar }}
+          slotProps={{
+            toolbar: {
+              showQuickFilter: true,
+              quickFilterProps: { debounceMs: 1000 },
+            },
+          }}
+          pageSizeOptions={[5]}
+          checkboxSelection
+          disableRowSelectionOnClick
+          disableColumnFilter
+          disableDensitySelector
+          disableColumnMenu
+          disableColumnSelector
         />
       </Box>
     </Box>

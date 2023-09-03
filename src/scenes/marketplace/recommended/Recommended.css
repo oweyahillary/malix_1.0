@@ -1,0 +1,17 @@
+.recommended-flex {
+  display: flex;
+  margin-left: 10px;
+}
+.recommended-title {
+  margin-left: 10px;
+}
+.btns {
+  padding: 10px 20px;
+  margin: 6px;
+  background: transparent;
+  border: none;
+  border: 0.6px solid #ccc;
+  border-radius: 10px;
+  color: #ccc;
+  cursor: pointer;
+}
